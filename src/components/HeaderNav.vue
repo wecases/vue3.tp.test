@@ -1,12 +1,14 @@
 <script setup lang="ts">
 /**
- * @File:   index.vue
- * @Time:   2022/11/18 09:16:29
+ * @File:   HeaderNav.vue
+ * @Time:   2022/11/19 19:14:44
  * @Author: Hao1617
  * @Desc:
  */
 </script>
 
 <template>
-  <main-list></main-list>
+  <div></div>
 </template>
+
+<style scoped></style>

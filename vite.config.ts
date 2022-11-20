@@ -2,6 +2,8 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig, loadEnv, type ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -15,13 +17,27 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
       vue(),
       WindiCSS(),
       AutoImport({
-        imports: ['vue', 'vue-router'],
-        resolvers: [ElementPlusResolver()],
+        imports: ['vue'],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: 'Icon',
+          }),
+        ],
         dts: 'src/types/auto-imports.d.ts',
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            enabledCollections: ['ep'],
+          }),
+        ],
         dts: 'src/types/components.d.ts',
+      }),
+      Icons({
+        compiler: 'vue3',
+        autoInstall: true,
       }),
     ],
     resolve: {
@@ -33,7 +49,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
       port: (env.VITE_PORT as unknown as number) || 3000,
       proxy: {
         '/api': {
-          target: env.VITE_BASE_API,
+          target: 'https://wallhaven.cc',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },

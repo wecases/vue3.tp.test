@@ -1,21 +1,39 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  type RouteRecordRaw,
+} from 'vue-router'
 import type { App } from 'vue'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'home',
+    redirect: '/general',
+  },
+  {
+    path: '/general',
+    name: 'general',
     component: () => import('@/views/index.vue'),
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login/login.vue'),
+    path: '/anime',
+    name: 'anime',
+    component: () => import('@/views/anime/index.vue'),
+  },
+  {
+    path: '/people',
+    name: 'people',
+    component: () => import('@/views/people/index.vue'),
+  },
+  {
+    path: '/details/:id',
+    name: 'details',
+    component: () => import('@/views/details/index.vue'),
   },
 ]
-// import.meta.env.BASE_URL
+
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 
